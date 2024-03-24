@@ -7,7 +7,6 @@ public class Main {
 
     private static class Cannon {
         int Attack, last, y, x;
-        int visited = 0;
         public Cannon(int attack, int last, int y, int x) {
             Attack = attack;
             this.last = last;
@@ -64,7 +63,7 @@ public class Main {
             // 공격자, 수비자 찾기
             Cannon[] atdf = select(map);
             map[atdf[0].y][atdf[0].x].Attack += X + Y;
-//            System.out.println("공 :" + atdf[0].y + atdf[0].x + " 수 : " + atdf[1].y + atdf[1].x);
+            //System.out.println("공 :" + atdf[0].y + atdf[0].x + " 수 : " + atdf[1].y + atdf[1].x);
             // 레이저 경로 반환 (못찾으면 null)
             visited = new boolean[Y][X];
             visited[atdf[0].y][atdf[0].x] = true;
@@ -73,7 +72,6 @@ public class Main {
 
             DFS(list, map, atdf[1]);
 
-            //.out.println(route);
 
             // 처리
             // 포탄
@@ -85,9 +83,8 @@ public class Main {
             map[atdf[1].y][atdf[1].x].Attack = Math.max(map[atdf[1].y][atdf[1].x].Attack - power, 0);
             visited[atdf[1].y][atdf[1].x] = true;
             visited[atdf[0].y][atdf[0].x] = true;
-//            System.out.println("경로 : " + route);
+            //System.out.println("경로 : " + route);
             if (route.isEmpty()) {
-
                 for (int d = 0; d < 8; d++) {
                     int nY = (Y + atdf[1].y + dy[d]) % Y;
                     int nX = (X + atdf[1].x + dx[d]) % X;
@@ -142,10 +139,10 @@ public class Main {
             while (x >= 0) {
                 if (y >= Y) break;
                 if (map[y][x].Attack != 0) {
-                    if (attack.compareTo(map[y][x]) > 0) {
+                    if (attack.compareTo(map[y][x]) >= 0) {
                         attack = map[y][x];
                     }
-                    if (defense.compareTo(map[y][x]) <= 0) {
+                    if (defense.compareTo(map[y][x]) < 0) {
                         defense = map[y][x];
                     }
                 }
