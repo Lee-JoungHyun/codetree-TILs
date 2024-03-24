@@ -92,8 +92,10 @@ public class Main {
                     int nY = (Y + atdf[1].y + dy[d]) % Y;
                     int nX = (X + atdf[1].x + dx[d]) % X;
                     //System.out.println("포탄");
-                    map[nY][nX].Attack = Math.max(map[nY][nX].Attack - power / 2, 0);
-                    visited[nY][nX] = true;
+                    if (!visited[nY][nX]) {
+                        map[nY][nX].Attack = Math.max(map[nY][nX].Attack - power / 2, 0);
+                        visited[nY][nX] = true;
+                    }
                 }
             }
             // 레이저
